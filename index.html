@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7c5cff" />
+    <title>급식 알리미</title>
+    <meta
+      name="description"
+      content="학교 급식을 가장 예쁘고 빠르게 확인할 수 있는 급식 조회 웹사이트"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">🍱</div>
+          <div class="brand__text">
+            <div class="brand__title">급식 알리미</div>
+            <div class="brand__subtitle">오늘 급식 · 주간 급식</div>
+          </div>
+        </div>
+
+        <div class="school-pill">
+          <button id="openSchoolModalBtn" class="btn btn--pill" type="button">
+            <span class="btn__label" id="selectedSchoolName">학교 선택</span>
+            <span class="btn__icon" aria-hidden="true">⌄</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="favorites" aria-label="즐겨찾기">
+          <div class="favorites__row">
+            <div class="section-title">즐겨찾기</div>
+            <button id="manageFavoritesBtn" class="btn btn--ghost" type="button">
+              관리
+            </button>
+          </div>
+          <div id="favoriteChips" class="chips" role="list"></div>
+          <div class="hint" id="favoritesHint">
+            즐겨찾기 3개까지 저장할 수 있어요.
+          </div>
+        </section>
+
+        <section class="grid">
+          <section class="card card--hero" aria-label="오늘의 급식">
+            <div class="card__header">
+              <div>
+                <div class="card__title">오늘의 급식</div>
+                <div class="card__meta" id="todayMeta">—</div>
+              </div>
+              <div class="segmented" role="tablist" aria-label="급식 보기 전환">
+                <button
+                  id="tabTodayBtn"
+                  class="segmented__btn is-active"
+                  type="button"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  오늘
+                </button>
+                <button
+                  id="tabWeekBtn"
+                  class="segmented__btn"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  주간
+                </button>
+              </div>
+            </div>
+
+            <div id="todayCardBody" class="card__body">
+              <div class="empty-state">
+                학교를 선택하면 오늘 급식이 바로 보여요.
+              </div>
+            </div>
+          </section>
+
+          <section class="card" aria-label="주간 급식 요약">
+            <div class="card__header">
+              <div>
+                <div class="card__title">주간 급식</div>
+                <div class="card__meta" id="weekMeta">—</div>
+              </div>
+              <button id="refreshBtn" class="btn btn--soft" type="button">
+                새로고침
+              </button>
+            </div>
+            <div id="weekCardBody" class="card__body">
+              <div class="empty-state">학교를 선택하면 주간 급식이 보여요.</div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer__left">
+          <span class="footer__muted">데이터 제공:</span>
+          <span class="footer__strong">나이스 교육정보 개방 포털</span>
+        </div>
+        <div class="footer__right">
+          <span class="footer__muted" id="buildInfo">Vanilla JS</span>
+        </div>
+      </footer>
+    </div>
+
+    <!-- School Select Modal -->
+    <div id="modalOverlay" class="modal-overlay" aria-hidden="true"></div>
+    <div
+      id="schoolModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="schoolModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal__header">
+        <div>
+          <div id="schoolModalTitle" class="modal__title">학교 선택</div>
+          <div class="modal__subtitle">
+            학교명을 검색해서 빠르게 선택하세요.
+          </div>
+        </div>
+        <button id="closeSchoolModalBtn" class="btn btn--icon" type="button" aria-label="닫기">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal__body">
+        <div class="search">
+          <input
+            id="schoolSearchInput"
+            class="search__input"
+            type="search"
+            placeholder="예) 서울고, OO중학교, OO초"
+            autocomplete="off"
+            inputmode="search"
+          />
+          <button id="schoolSearchClearBtn" class="btn btn--icon" type="button" aria-label="지우기">
+            ⌫
+          </button>
+        </div>
+
+        <div class="modal__section">
+          <div class="modal__sectionTitle">검색 결과</div>
+          <div id="schoolResults" class="list" role="list"></div>
+          <div id="schoolResultsHint" class="hint">
+            학교명을 입력하면 결과가 실시간으로 표시돼요.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="./js/config.js"></script>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

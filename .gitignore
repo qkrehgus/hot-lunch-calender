@@ -1,0 +1,9 @@
+# local config (do not commit secrets)
+js/config.js
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.cursor/
+
